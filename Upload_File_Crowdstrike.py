@@ -105,7 +105,7 @@ def check_api_credentials(client_id, client_secret):
     response = oauth2.token()
 
     # Handle both 200 and 201 as successful responses
-    if response["status_code"] in [200, 201]:
+    if response["status_code"] == 200:
         print("CrowdStrike API credentials are valid.")
         return True
     else:
@@ -157,10 +157,8 @@ def upload_file_to_crowdstrike(client_id, client_secret, file_path, description)
             )
 
         # Handle the API response
-        if response["status_code"] == 201:
+        if response["status_code"] == 200:
             print(f"File '{file_path}' successfully uploaded to CrowdStrike.")
-        elif response["status_code"] == 200:
-            print(f"File '{file_path}' was uploaded successfully (status 200).")
         else:
             print("Failed to upload the file. Response:", response)
 
