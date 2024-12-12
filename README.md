@@ -2,7 +2,7 @@
 
 ## Overview
 
-Manual Canary Token deployment is a tedious and error-prone process, especially when managing multiple endpoints. Canary Tokens act as digital tripwires, alerting defenders when malicious actors interact with them. However, deploying these tokens manually across various devices poses significant challenges:
+Manual Canary Token deployment is a tedious and error-prone process. Canary Tokens act as digital tripwires, alerting defenders when malicious actors interact with them. However, deploying these tokens manually across various devices poses significant challenges:
 - **Time-Consuming**: Manually creating directories and placing tokens.
 - **Prone to Errors**: Incorrect configurations can lead to ineffective deployments.
 - **Lack of Scalability**: Enterprises with large networks cannot efficiently scale manual processes.
