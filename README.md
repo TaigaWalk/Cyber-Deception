@@ -1,46 +1,52 @@
-# Cyber-Deception
-Automated Canary Token Deployment
+# Automated Canary Token Deployment via CrowdStrike RTR
 
-Overview
-Canary tokens are a powerful tool for deception in cybersecurity, designed to alert defenders of potential breaches by acting as enticing bait for attackers. However, manually deploying these tokens across an organization can be tedious, error-prone, and time-intensive.
+## Overview
 
-This repository contains two Python scripts designed to streamline the deployment of canary tokens:
-  1. Deployment Script: Automatically deploys and verifies the placement of files on target machines using CrowdStrike’s Real-Time Response (RTR) APIs.
-  2. Upload Script: Uploads files to the CrowdStrike cloud for use in RTR operations.
+Manual Canary Token deployment is a tedious and error-prone process, especially when managing multiple endpoints. Canary Tokens act as digital tripwires, alerting defenders when malicious actors interact with them. However, deploying these tokens manually across various devices poses significant challenges:
+- **Time-Consuming**: Manually creating directories and placing tokens.
+- **Prone to Errors**: Incorrect configurations can lead to ineffective deployments.
+- **Lack of Scalability**: Enterprises with large networks cannot efficiently scale manual processes.
 
-These scripts are platform-agnostic, supporting both macOS and Windows environments.
+This repository contains two scripts designed to automate and streamline Canary Token deployment using CrowdStrike's Real-Time Response (RTR) API.
 
-Problem Statement
-Manual Deployment Challenges
-1. Time-Consuming: Placing tokens manually across multiple endpoints is inefficient.
-2. Error-Prone: Ensuring consistency in token placement and configuration is difficult at scale.
-3. Scalability Issues: Large organizations cannot feasibly manage manual deployments for hundreds or thousands of endpoints.
+## Why These Scripts Were Created
 
-Why This Solution?
-To address these challenges, this solution leverages CrowdStrike RTR APIs to automate:
--Directory creation and permission setting.
--File uploading and placement.
--Token renaming for authenticity.
--Verification to ensure deployment success.
+To address the challenges of manual deployment, these scripts:
+- Upload  and deploy tokenized files securely to endpoints using CrowdStrike RTR.
+- Automate directory creation with proper permissions.
+- Rename files to match the desired naming conventions.
+- Ensure permissions are correctly applied for both macOS and Windows environments.
+- Provide verification steps to confirm successful deployment.
 
-Additionally, sensitive credentials like API keys are securely managed using 1Password, ensuring a secure and streamlined authentication process.
+## Scripts
 
-High-Level Functionality
-Deployment Script (Deployment.py)
-Authenticate with 1Password: Retrieves CrowdStrike API credentials securely.
-Initialize RTR Connection: Starts an RTR session on the target machine.
-Directory Management:
-Creates directories with appropriate permissions (macOS: chmod, Windows: icacls).
-Ensures directories are prepped for token placement.
-File Upload and Placement:
-Uploads the specified file to the desired directory.
-Renames the file for added authenticity.
-Verification:
-Validates that the file exists and has appropriate permissions post-deployment.
-Cleanup:
-Removes the device from the RTR-enabled group once the deployment is complete.
-Upload Script (Upload_File_Crowdstrike.py)
-File Upload:
-Uploads local files to CrowdStrike’s cloud repository for use during RTR operations.
-File Verification:
-Confirms the successful upload of files.
+### 1. `Upload_File_Crowdstrike.py`
+
+This script uploads tokenized files to CrowdStrike's cloud repository for access during deployment. Key features:
+- **File Validation**: Ensures the file exists locally before uploading.
+- **CrowdStrike Integration**: Uses the RTR API to upload files to the cloud.
+- **Metadata Handling**: Includes optional descriptions for better file identification.
+
+### 2. `Deployment.py`
+
+This script automates the deployment process by:
+- **Identifying Target Hosts**: Using device serial numbers to query and retrieve host information via CrowdStrike API.
+- **Setting Up Directories**: Ensuring directories exist with appropriate permissions.
+- **Uploading Files**: Placing Canary Tokens in the specified directories.
+- **Renaming and Verifying Files**: Confirming file existence and renaming for consistency.
+- **Cleaning Up**: Removing the target device from RTR-enabled groups post-deployment.
+
+## Key Features
+
+- **Cross-Platform Compatibility**: Supports macOS and Windows environments.
+- **Secure Authentication**: Leverages 1Password for fetching API credentials securely.
+- **Automated Permissions**: Ensures folders and files are accessible by the intended users.
+- **Verification**: Validates file placement and permissions.
+
+  ## Prerequisites
+
+1. **Python Environment**: Ensure Python 3.7 or higher is installed.
+2. **Dependencies**: Install required packages from `requirements.txt`.
+3. **CrowdStrike RTR Access**: Ensure you have API credentials with permissions to use RTR features.
+4. **1Password CLI**: Install and configure the `op` CLI for secure credential management.
+5. **Tokenized Files**: Prepare the Canary Tokens you wish to deploy.
