@@ -244,7 +244,7 @@ def create_directory(session_id, host_OS, file_path):
 
         # Reset and apply permissions
         icacls_reset_command = rf'icacls "{file_path}" /reset /T /C'
-        icacls_grant_command = rf'icacls "{file_path}" /grant Everyone:(OI)(CI)(F) /grant "{username}":(OI)(CI)(F) /inheritance:e'
+        icacls_grant_command = rf'icacls "{file_path}" /grant "{username}":(OI)(CI)(F) /inheritance:e'
 
         for command in [icacls_reset_command, icacls_grant_command]:
             icacls_response = rtr_admin_api.execute_admin_command(
@@ -388,7 +388,7 @@ def change_permissions(session_id, host_OS, path, is_file=False):
         reset_command = rf'icacls "{path}" /reset /T /C'
 
         # Grant full permissions
-        grant_command = rf'icacls "{path}" /grant Everyone:(OI)(CI)(F) /grant "{username}":(OI)(CI)(F) /inheritance:e'
+        grant_command = rf'icacls "{path}" /grant "{username}":(OI)(CI)(F) /inheritance:e'
 
         # Execute both commands
         for command in [reset_command, grant_command]:
